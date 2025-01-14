@@ -6,7 +6,7 @@
 #define MAX_NAME_LENGTH 50
 
 
-// CREATE NODE
+// CREATE NODE FOR LINKED LIST
 typedef struct Patient {
     char name[MAX_NAME_LENGTH];
     int age;
