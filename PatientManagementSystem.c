@@ -43,11 +43,9 @@ int main() {
                 break;
             case 3:
                 printf("Enter name to search: ");
-                scanf(" %[^\n]", searchName);
-                Patient *searched = searchPatient(searchName);
+                scanf(" %[^\n]", &searchName);
                 if (searched != NULL) {
-                    printf("Patient found: Name: %s, Age: %d, Date: %s, Condition: %s\n",
-                           searched->name, searched->age, searched->date, searched->condition);
+                    printf("Patient found: Name: %s, Age: %d, Date: %s, Condition: %s\n");
                 } else {
                     printf("Patient not found.\n");
                 }
