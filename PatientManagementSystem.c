@@ -131,17 +131,26 @@ void displayPatients()
         printf("No patients to display.\n");
         return;
     }
+
     printf("Displaying patient details in FIFO order:\n");
-    printf("------------------------------------------\n");
-    printf("Name\t\tAge\t\tCondition\n");
-    printf("------------------------------------------\n");
+    printf("----------------------------------------------------\n");
+    printf("S.No\tName\t\tAge\t\tCondition\n");
+    printf("----------------------------------------------------\n");
+
     Patient *temp = front;
+    int serialNumber = 1; // Start serial number from 1
+    int totalCount = 0;   // Count total patients
+
+    // Loop through the queue and display each patient's details
     while (temp != NULL)
     {
-        printf("%-15s %-10d %-20s\n", temp->name, temp->age, temp->condition);
+        printf("%-5d %-15s %-10d %-20s\n", serialNumber++, temp->name, temp->age, temp->condition);
         temp = temp->next;
+        totalCount++;
     }
-    printf("------------------------------------------\n");
+
+    printf("----------------------------------------------------\n");
+    printf("Total number of patients: %d\n", totalCount);
 }
 
 // Function to search for a patient
