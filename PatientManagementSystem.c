@@ -3,22 +3,22 @@
 #include <string.h>
 
 // Patient structure
-typedef struct Patient {
+typedef struct Patient
+{
     char name[50];
     int age;
     char date[11];
     char condition[100];
-    struct Patient* next;
+    struct Patient *next;
 } Patient;
 
-
 // Bill structure
-typedef struct Bill {
+typedef struct Bill
+{
     int patientID;
     float amount;
-    struct Bill* next;
+    struct Bill *next;
 } Bill;
-
 
 // Function prototypes
 void addPatient();
@@ -29,15 +29,17 @@ void sortPatients();
 void manageBills();
 
 // Global pointers for patient linked list and bill stack
-Patient* front = NULL;
-Patient* rear = NULL;
+Patient *front = NULL;
+Patient *rear = NULL;
 
-Bill* billStack = NULL;
+Bill *billStack = NULL;
 
 // Main function
-int main() {
+int main()
+{
     int choice;
-    do {
+    do
+    {
         printf("\nPatient Management System\n");
         printf("1. Add Patient\n");
         printf("2. Delete Patient\n");
@@ -48,39 +50,40 @@ int main() {
         printf("7. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
-        switch (choice) {
-            case 1:
-                addPatient();
-                break;
-            case 2:
-                deletePatient();
-                break;
-            case 3:
-                displayPatients();
-                break;
-            case 4:
-                searchPatient();
-                break;
-            case 5:
-               // sortPatients();
-                break;
-            case 6:
-                manageBills();
-                break;
-            case 7:
-                printf("Exiting...\n");
-                break;
-            default:
-                printf("Invalid choice. Please try again.\n");
+        switch (choice)
+        {
+        case 1:
+            addPatient();
+            break;
+        case 2:
+            deletePatient();
+            break;
+        case 3:
+            displayPatients();
+            break;
+        case 4:
+            searchPatient();
+            break;
+        case 5:
+            // sortPatients();
+            break;
+        case 6:
+            manageBills();
+            break;
+        case 7:
+            printf("Exiting...\n");
+            break;
+        default:
+            printf("Invalid choice. Please try again.\n");
         }
     } while (choice != 7);
     return 0;
 }
 
-
 // Function to add a patient
-void addPatient() {
-    Patient* newPatient = (Patient*)malloc(sizeof(Patient));
+void addPatient()
+{
+    Patient *newPatient = (Patient *)malloc(sizeof(Patient));
     printf("Enter patient's name: ");
     scanf(" %s", newPatient->name);
     printf("Enter patient's age: ");
@@ -90,60 +93,73 @@ void addPatient() {
     printf("Enter patient's condition: ");
     scanf(" %s", newPatient->condition);
     newPatient->next = NULL;
-    if (rear == NULL) {
+    if (rear == NULL)
+    {
         front = rear = newPatient;
-    } else {
+    }
+    else
+    {
         rear->next = newPatient;
         rear = newPatient;
     }
     printf("Patient added successfully.\n");
 }
 
-
 // Function to delete a patient
-void deletePatient() {
-    if (front == NULL) {
+void deletePatient()
+{
+    if (front == NULL)
+    {
         printf("No patients to delete.\n");
         return;
     }
-    Patient* temp = front;
+    Patient *temp = front;
     front = front->next;
-    if (front == NULL) {
+    if (front == NULL)
+    {
         rear = NULL;
     }
     free(temp);
     printf("Patient deleted successfully.\n");
 }
 
-
-
 // Function to display patients
-void displayPatients() {
-    if (front == NULL) {
+void displayPatients()
+{
+    if (front == NULL)
+    {
         printf("No patients to display.\n");
         return;
     }
-    Patient* temp = front;
-    while (temp != NULL) {
-        printf("Name: %s, Age: %d, Date: %s, Condition: %s\n", temp->name, temp->age, temp->date, temp->condition);
+    printf("Displaying patient details in FIFO order:\n");
+    printf("------------------------------------------\n");
+    printf("Name\t\tAge\t\tCondition\n");
+    printf("------------------------------------------\n");
+    Patient *temp = front;
+    while (temp != NULL)
+    {
+        printf("%-15s %-10d %-20s\n", temp->name, temp->age, temp->condition);
         temp = temp->next;
     }
+    printf("------------------------------------------\n");
 }
 
-
-
 // Function to search for a patient
-void searchPatient() {
-    if (front == NULL) {
+void searchPatient()
+{
+    if (front == NULL)
+    {
         printf("No patients to search.\n");
         return;
     }
     char searchName[50];
     printf("Enter patient's name to search: ");
     scanf(" %s", searchName);
-    Patient* temp = front;
-    while (temp != NULL) {
-        if (strcmp(temp->name, searchName) == 0) {
+    Patient *temp = front;
+    while (temp != NULL)
+    {
+        if (strcmp(temp->name, searchName) == 0)
+        {
             printf("Patient found: Name: %s, Age: %d, Date: %s, Condition: %s\n", temp->name, temp->age, temp->date, temp->condition);
             return;
         }
@@ -151,8 +167,6 @@ void searchPatient() {
     }
     printf("Patient not found.\n");
 }
-
-
 
 // // Function to sort patients by date and condition using bubble sort
 // void sortPatients() {
@@ -183,10 +197,9 @@ void searchPatient() {
 //     printf("Patients sorted successfully.\n");
 // }
 
-
-
 // Function to manage bills (add or display)
-void manageBills() {
+void manageBills()
+{
     int choice;
     printf("\nManage Bills\n");
     printf("1. Add Bill\n");
@@ -194,15 +207,15 @@ void manageBills() {
     printf("Enter your choice: ");
     scanf("%d", &choice);
 
-
-
-    if (choice == 1) {
-        Bill* newBill = (Bill*)malloc(sizeof(Bill));
+    if (choice == 1)
+    {
+        Bill *newBill = (Bill *)malloc(sizeof(Bill));
         int diagnosisChoice;
         float diagnosisPrice = 0.0, totalAmount = 0.0;
         printf("Enter patient ID for the bill: ");
         scanf("%d", &newBill->patientID);
-        do {
+        do
+        {
             printf("Select diagnosis type (Enter 0 to finish):\n");
             printf("1. General Checkup (500.00)\n");
             printf("2. X-Ray (1500.00)\n");
@@ -210,24 +223,25 @@ void manageBills() {
             printf("4. Blood Test (200.00)\n");
             printf("Enter your choice: ");
             scanf("%d", &diagnosisChoice);
-            switch (diagnosisChoice) {
-                case 1:
-                    diagnosisPrice = 50.00;
-                    break;
-                case 2:
-                    diagnosisPrice = 150.00;
-                    break;
-                case 3:
-                    diagnosisPrice = 1000.00;
-                    break;
-                case 4:
-                    diagnosisPrice = 200.00;
-                    break;
-                case 0:
-                    break;
-                default:
-                    printf("Invalid choice. Please try again.\n");
-                    continue;
+            switch (diagnosisChoice)
+            {
+            case 1:
+                diagnosisPrice = 50.00;
+                break;
+            case 2:
+                diagnosisPrice = 150.00;
+                break;
+            case 3:
+                diagnosisPrice = 1000.00;
+                break;
+            case 4:
+                diagnosisPrice = 200.00;
+                break;
+            case 0:
+                break;
+            default:
+                printf("Invalid choice. Please try again.\n");
+                continue;
             }
             totalAmount += diagnosisPrice;
 
@@ -237,24 +251,25 @@ void manageBills() {
         newBill->next = billStack;
         billStack = newBill;
         printf("Total bill amount: $%.2f\n", newBill->amount);
-    } 
+    }
 
-
-    else if (choice == 2) {
-        if (billStack == NULL) {
+    else if (choice == 2)
+    {
+        if (billStack == NULL)
+        {
             printf("No bills to display.\n");
             return;
         }
-        Bill* temp = billStack;
-        while (temp != NULL) {
+        Bill *temp = billStack;
+        while (temp != NULL)
+        {
             printf("Patient ID: %d, Amount: $%.2f\n", temp->patientID, temp->amount);
             temp = temp->next;
         }
-    } 
-    
-    else {
+    }
+
+    else
+    {
         printf("Invalid choice.\n");
     }
 }
-
- 
