@@ -71,7 +71,7 @@ int main()
             manageBills();
             break;
         case 7:
-            printf("Exiting...\n");
+            printf("Exiting..\n");
             break;
         default:
             printf("Invalid choice. Please try again.\n");
@@ -213,6 +213,8 @@ void manageBills()
     printf("\nManage Bills\n");
     printf("1. Add Bill\n");
     printf("2. Display Bills\n");
+    printf("3. Notify Dues\n");
+    printf("4.Payment Recipt");
     printf("Enter your choice: ");
     scanf("%d", &choice);
 
