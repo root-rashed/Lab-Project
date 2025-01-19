@@ -27,6 +27,10 @@ void displayPatients();
 void searchPatient();
 void sortPatients();
 void manageBills();
+void addBill();
+void displayBills();
+void notifyDues():
+void paymentRecipt():
 
 // Global pointers for patient linked list and bill stack
 Patient *front = NULL;
@@ -213,9 +217,14 @@ void manageBills()
     printf("1. Add Bill\n");
     printf("2. Display Bills\n");
     printf("3. Notify Dues\n");
-    printf("4.Payment Recipt");
+    printf("4.Payment Recipt\n");
     printf("Enter your choice: ");
     scanf("%d", &choice);
+    int maximumPatients[1000];
+    int paidAmount[maximumPatients];
+    float discount[maximumPatients];
+    memset(paidStatus, 0, sizeof(paidAmount)); 
+    memset(discounts, 0, sizeof(discount)); 
 
     if (choice == 1)
     {
@@ -224,6 +233,7 @@ void manageBills()
         float diagnosisPrice = 0.0, totalAmount = 0.0;
         printf("Enter patient ID for the bill: ");
         scanf("%d", &newBill->patientID);
+        
         do
         {
             printf("Select diagnosis type (Enter 0 to finish):\n");
@@ -256,6 +266,10 @@ void manageBills()
             totalAmount += diagnosisPrice;
 
         } while (diagnosisChoice != 0);
+
+        if(discount[newBill->patientId]  > 0){
+            totalAmount -=totalamount * discount[newBill->patientId];
+            printf("%.1f%% discount applied for the patient.\n",discount[newBill->patientId] *100);
 
         newBill->amount = totalAmount;
         newBill->next = billStack;
