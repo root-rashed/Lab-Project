@@ -28,7 +28,6 @@ void searchPatient();
 void sortPatients();
 void manageBills();
 void addBill();
-void displayBills();
 void notifyDues():
 void paymentRecipt():
 
@@ -233,6 +232,16 @@ void manageBills()
         float diagnosisPrice = 0.0, totalAmount = 0.0;
         printf("Enter patient ID for the bill: ");
         scanf("%d", &newBill->patientID);
+         Patient *temp = front;
+        while (temp != NULL)
+        {
+            if (temp->age > 50 && temp->name[0] != '\0')
+            {
+                discounts[newBill->patientID] = 0.25;
+                break;
+            }
+            temp = temp->next;
+        }
         
         do
         {
