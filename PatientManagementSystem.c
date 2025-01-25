@@ -214,9 +214,8 @@ void manageBills()
     int choice;
     printf("\nManage Bills\n");
     printf("1. Add Bill\n");
-    printf("2. Display Bills\n");
-    printf("3. Notify Dues\n");
-    printf("4.Payment Recipt\n");
+    printf("2. Notify Dues\n");
+    printf("3.Payment Recipt\n");
     printf("Enter your choice: ");
     scanf("%d", &choice);
     int maximumPatients[1000];
@@ -300,9 +299,44 @@ void manageBills()
             temp = temp->next;
         }
     }
+        else if (choice == 3)
+    {
+        printf("\nUnpaid Bills:\n");
+        Bill *temp = billStack;
+        while (temp != NULL)
+        {
+            if (paidStatus[temp->patientID] == 0)
+            {
+                printf("Patient ID: %d, Due Amount: $%.2f\n", temp->patientID, temp->amount);
+            }
+            temp = temp->next;
+        }
+    }
+         else if (choice == 4)
+    {
+        int patientID;
+        printf("Enter patient ID to generate receipt: ");
+        scanf("%d", &patientID);
+        Bill *temp = billStack;
+        while (temp != NULL)
+        {
+            if (temp->patientID == patientID)
+            {
+                printf("Payment Receipt\n");
+                printf("----------------\n");
+                printf("Patient ID: %d\n", temp->patientID);
+                printf("Total Amount: $%.2f\n", temp->amount);
+                printf("Payment Status: Paid\n");
+                paidStatus[patientID] = 1; 
+                return;
+            }
+            temp = temp->next;
+        }
+        printf("No bill found for the given patient ID.\n");
+    }
 
     else
     {
         printf("Invalid choice.\n");
-    }
+} 
 }
